@@ -1,43 +1,75 @@
-import mediapipe as mp
+from ultralytics import YOLO
 import cv2
-import numpy as np
-import matplotlib.pyplot as plt
+from ultralytics.yolo.utils.plotting import Annotator
+import threading
+
+cam1 = 0
+cam2 = 0
+
+def collect_data():
+    print("hello")
+
+def predict(frame, results):
+    cam1 = 0
+    for r in results:
+        annotator = Annotator(frame)
+        
+        boxes = r.boxes
+        for box in boxes:
+            
+            b = box.xyxy[0] 
+            c = box.cls
+            if c == 41:
+                cam1 = 1
+                annotator.box_label(b, model.names[int(c)])
+          
+    frame = annotator.result() 
+    print(cam1) 
+    cv2.imshow('YOLO V8 Detection', frame)  
+
+def predict2(frame, results):
+    cam2 = 0
+    for r in results:
+        annotator = Annotator(frame)
+        
+        boxes = r.boxes
+        for box in boxes:
+            
+            b = box.xyxy[0]  
+            c = box.cls
+            if c == 41:
+                cam2 = 1
+                annotator.box_label(b, model.names[int(c)])
+          
+    frame = annotator.result()  
+    print(cam2)
+    cv2.imshow('YOLO V8 Detection2', frame)      
 
 
-mp_objectron = mp.solutions.objectron
-mp_drawing = mp.solutions.drawing_utils
-
+model = YOLO('yolov8n.pt')
 cap = cv2.VideoCapture(0)
+cap2 = cv2.VideoCapture(2)
+cap.set(3, 640)
+cap.set(4, 480)
+cap2.set(3, 640)
+cap2.set(4, 480)
+while True:
+    _, frame = cap.read()
+    _, frame2 = cap2.read()
+    
+    img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    img2 = cv2.cvtColor(frame2, cv2.COLOR_BGR2RGB)
 
-objectron = mp_objectron.Objectron(static_image_mode=False,
-                            max_num_objects=5,
-                            min_detection_confidence=0.4,
-                            min_tracking_confidence=0.70,
-                            model_name='Cup')
-                            
-
-while cap.isOpened():
-    success, image = cap.read()
-
-    image.flags.writeable = False
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    results = objectron.process(image)
-
-    image.flags.writeable = True
-    image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-    if results.detected_objects:
-        for detected_object in results.detected_objects:
-            
-            mp_drawing.draw_landmarks(image, 
-                                      detected_object.landmarks_2d, 
-                                      mp_objectron.BOX_CONNECTIONS)
-            
-            mp_drawing.draw_axis(image, 
-                                 detected_object.rotation,
-                                 detected_object.translation)
-
-    cv2.imshow('MediaPipe Objectron', cv2.flip(image, 1))
-    if cv2.waitKey(10) & 0xFF == ord('q'):
+    results = model.predict(img)
+    results2 = model.predict(img2)
+    t1 = threading.Thread(target=predict(frame, results), name='t1')
+    t2 = threading.Thread(target=predict2(frame2, results2), name='t2')
+    t1.start()
+    t2.start()
+    if cv2.waitKey(1) & 0xFF == ord(' '):
+        t1.join()
+        t2.join()
         break
+
 cap.release()
 cv2.destroyAllWindows()
