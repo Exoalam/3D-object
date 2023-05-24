@@ -5,9 +5,24 @@ import threading
 
 cam1 = 0
 cam2 = 0
+rand = 100
 
-def collect_data():
-    print("hello")
+
+def collect_data(data, f_n):
+    global rand
+    global frame
+    global frame2
+    if f_n == 1:
+        f = open("Dataset/Labels"+str(rand)+".txt", "w")
+        f.write(str(data))
+        f.close()
+        cv2.imwrite("Dataset/Images"+str(rand)+".png", frame)
+    if f_n == 2:
+        f = open("Dataset/Labels"+str(rand)+".txt", "w")
+        f.write(str(data))
+        f.close()
+        cv2.imwrite("Dataset/Images"+str(rand)+".png", frame2)
+    rand += 1        
 
 def predict(frame, results):
     cam1 = 0
@@ -22,6 +37,8 @@ def predict(frame, results):
             if c == 41:
                 cam1 = 1
                 annotator.box_label(b, model.names[int(c)])
+                if cam2 == 0:
+                    collect_data(box, 2)
           
     frame = annotator.result() 
     print(cam1) 
@@ -40,6 +57,8 @@ def predict2(frame, results):
             if c == 41:
                 cam2 = 1
                 annotator.box_label(b, model.names[int(c)])
+                if cam1 == 0:
+                    collect_data(box, 1)
           
     frame = annotator.result()  
     print(cam2)
