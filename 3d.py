@@ -10,10 +10,10 @@ rand = 100
 def percentage(frame_h, frame_w, h, w):
     return int((h*w)/(frame_h*frame_w)*100)
 
-def percentage_save( f_n, cls, conf, percentage):
-    global rand
-    global frame
-    global frame2
+def percentage_save(frame, f_n, cls, conf, percentage):
+    # global rand
+    # global frame
+    # global frame2
     if f_n == 1:
         if percentage == 1:
             f = open("PerDataset/1/Labels"+str(rand)+".txt", "w")
@@ -60,52 +60,52 @@ def percentage_save( f_n, cls, conf, percentage):
             f.write(str(cls)+" "+str(conf)+" "+str(percentage))
             f.close()
             cv2.imwrite("PerDataset/100/Images"+str(rand)+".png", frame)  
-    if f_n == 2:
-        if percentage == 1:
-            f = open("PerDataset/1/Labels"+str(rand)+".txt", "w")
-            f.write(str(cls)+" "+str(conf)+" "+str(percentage))
-            f.close()
-            cv2.imwrite("PerDataset/1/Images"+str(rand)+".png", frame2)  
-        if percentage == 5:
-            f = open("PerDataset/5/Labels"+str(rand)+".txt", "w")
-            f.write(str(cls)+" "+str(conf)+" "+str(percentage))
-            f.close()
-            cv2.imwrite("PerDataset/5/Images"+str(rand)+".png", frame2)  
-        if percentage == 10:
-            f = open("PerDataset/10/Labels"+str(rand)+".txt", "w")
-            f.write(str(cls)+" "+str(conf)+" "+str(percentage))
-            f.close()
-            cv2.imwrite("PerDataset/10/Images"+str(rand)+".png", frame2)  
-        if percentage == 20:
-            f = open("PerDataset/20/Labels"+str(rand)+".txt", "w")
-            f.write(str(cls)+" "+str(conf)+" "+str(percentage))
-            f.close()
-            cv2.imwrite("PerDataset/20/Images"+str(rand)+".png", frame2)       
-        if percentage == 30:
-            f = open("PerDataset/30/Labels"+str(rand)+".txt", "w")
-            f.write(str(cls)+" "+str(conf)+" "+str(percentage))
-            f.close()
-            cv2.imwrite("PerDataset/30/Images"+str(rand)+".png", frame2)  
-        if percentage == 50:
-            f = open("PerDataset/50/Labels"+str(rand)+".txt", "w")
-            f.write(str(cls)+" "+str(conf)+" "+str(percentage))
-            f.close()
-            cv2.imwrite("PerDataset/50/Images"+str(rand)+".png", frame2)  
-        if percentage == 75:
-            f = open("PerDataset/75/Labels"+str(rand)+".txt", "w")
-            f.write(str(cls)+" "+str(conf)+" "+str(percentage))
-            f.close()
-            cv2.imwrite("PerDataset/75/Images"+str(rand)+".png", frame2)  
-        if percentage == 90:
-            f = open("PerDataset/90/Labels"+str(rand)+".txt", "w")
-            f.write(str(cls)+" "+str(conf)+" "+str(percentage))
-            f.close()
-            cv2.imwrite("PerDataset/90/Images"+str(rand)+".png", frame2)  
-        if percentage == 100:
-            f = open("PerDataset/100/Labels"+str(rand)+".txt", "w")
-            f.write(str(cls)+" "+str(conf)+" "+str(percentage))
-            f.close()
-            cv2.imwrite("PerDataset/100/Images"+str(rand)+".png", frame2)             
+    # if f_n == 2:
+    #     if percentage == 1:
+    #         f = open("PerDataset/1/Labels"+str(rand)+".txt", "w")
+    #         f.write(str(cls)+" "+str(conf)+" "+str(percentage))
+    #         f.close()
+    #         cv2.imwrite("PerDataset/1/Images"+str(rand)+".png", frame2)  
+    #     if percentage == 5:
+    #         f = open("PerDataset/5/Labels"+str(rand)+".txt", "w")
+    #         f.write(str(cls)+" "+str(conf)+" "+str(percentage))
+    #         f.close()
+    #         cv2.imwrite("PerDataset/5/Images"+str(rand)+".png", frame2)  
+    #     if percentage == 10:
+    #         f = open("PerDataset/10/Labels"+str(rand)+".txt", "w")
+    #         f.write(str(cls)+" "+str(conf)+" "+str(percentage))
+    #         f.close()
+    #         cv2.imwrite("PerDataset/10/Images"+str(rand)+".png", frame2)  
+    #     if percentage == 20:
+    #         f = open("PerDataset/20/Labels"+str(rand)+".txt", "w")
+    #         f.write(str(cls)+" "+str(conf)+" "+str(percentage))
+    #         f.close()
+    #         cv2.imwrite("PerDataset/20/Images"+str(rand)+".png", frame2)       
+    #     if percentage == 30:
+    #         f = open("PerDataset/30/Labels"+str(rand)+".txt", "w")
+    #         f.write(str(cls)+" "+str(conf)+" "+str(percentage))
+    #         f.close()
+    #         cv2.imwrite("PerDataset/30/Images"+str(rand)+".png", frame2)  
+    #     if percentage == 50:
+    #         f = open("PerDataset/50/Labels"+str(rand)+".txt", "w")
+    #         f.write(str(cls)+" "+str(conf)+" "+str(percentage))
+    #         f.close()
+    #         cv2.imwrite("PerDataset/50/Images"+str(rand)+".png", frame2)  
+    #     if percentage == 75:
+    #         f = open("PerDataset/75/Labels"+str(rand)+".txt", "w")
+    #         f.write(str(cls)+" "+str(conf)+" "+str(percentage))
+    #         f.close()
+    #         cv2.imwrite("PerDataset/75/Images"+str(rand)+".png", frame2)  
+    #     if percentage == 90:
+    #         f = open("PerDataset/90/Labels"+str(rand)+".txt", "w")
+    #         f.write(str(cls)+" "+str(conf)+" "+str(percentage))
+    #         f.close()
+    #         cv2.imwrite("PerDataset/90/Images"+str(rand)+".png", frame2)  
+    #     if percentage == 100:
+    #         f = open("PerDataset/100/Labels"+str(rand)+".txt", "w")
+    #         f.write(str(cls)+" "+str(conf)+" "+str(percentage))
+    #         f.close()
+    #         cv2.imwrite("PerDataset/100/Images"+str(rand)+".png", frame2)             
                          
 def collect_data(data, f_n):
     global rand
@@ -134,8 +134,11 @@ def predict(frame, results):
             b = box.xyxy[0] 
             _b = box.xywh[0].detach().cpu().numpy()
             
-            c = box.cls
+            c = box.cls.detach().cpu().numpy()
+            _c = box.conf.detach().cpu().numpy()
             if c == 41:
+                p = percentage(frame[0],frame[1],_b[3],_b[2])
+                percentage_save(frame, 1, int(c), int(_c), p)
                 cam1 = 1
                 annotator.box_label(b, model.names[int(c)])
                 if cam2 == 0:
@@ -155,8 +158,11 @@ def predict2(frame, results):
             
             b = box.xyxy[0] 
             _b = box.xywh[0].detach().cpu().numpy()
-            c = box.cls
+            c = box.cls.detach().cpu().numpy()
+            _c = box.conf.detach().cpu().numpy()
             if c == 41:
+                p = percentage(frame[0],frame[1],_b[3],_b[2])
+                percentage_save(frame, 1, int(c), int(_c), p)
                 cam2 = 1
                 print(_b) 
                 annotator.box_label(b, model.names[int(c)])
